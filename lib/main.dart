@@ -14,6 +14,12 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
+      builder: (BuildContext context, Widget child) {
+        return MediaQuery(
+          data: MediaQuery.of(context).copyWith(textScaleFactor: 1.0),
+          child: child,
+        );
+      },
       home: MyHomePage(),
     );
   }
@@ -29,21 +35,26 @@ class MyHomePage extends StatelessWidget {
       body: Center(
           child: Padding(
         padding: const EdgeInsets.all(8.0),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            OutlinedButton(
-                onPressed: () {
-                  Navigator.of(context).push(
-                    MaterialPageRoute(
-                      builder: (context) => WalletScreen(
-                        size: MediaQuery.of(context).size,
-                      ),
-                    ),
-                  );
-                },
-                child: Text("Wallet")),
-            OutlinedButton(onPressed: () {}, child: Text("Profile"))
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: [
+                OutlinedButton(
+                    onPressed: () {
+                      Navigator.of(context).push(
+                        MaterialPageRoute(
+                          builder: (context) => WalletScreen(
+                            size: MediaQuery.of(context).size,
+                          ),
+                        ),
+                      );
+                    },
+                    child: Text("Wallet")),
+                OutlinedButton(onPressed: () {}, child: Text("Profile")),
+              ],
+            ),
           ],
         ),
       )),

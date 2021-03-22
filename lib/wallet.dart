@@ -18,13 +18,21 @@ class _WalletScreenState extends State<WalletScreen>
   Animation<double> animationbh;
   Animation<double> animationbw;
   Animation<double> fadeanimationOp;
-  double num = 424;
+  double num = 255.34;
   Animation<double> numberAnim;
+
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    controller.dispose();
+    super.dispose();
+  }
 
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
+
     controller = AnimationController(
         duration: const Duration(milliseconds: 900), vsync: this);
     animationaw = Tween<double>(begin: 20, end: 0).animate(controller)
@@ -45,7 +53,15 @@ class _WalletScreenState extends State<WalletScreen>
           // The state that has changed here is the animation object’s value.
         });
       });
-    animationbw = Tween<double>(begin: 20 + 5 + 125 - widget.size.width, end: 0)
+    animationbw = Tween<double>(
+            begin: 48 +
+                20 +
+                20 +
+                10 +
+                ((num.toStringAsFixed(2).length) * 20) -
+                ((num.toStringAsFixed(2).length > 5) ? 0.0 : 7.0) -
+                widget.size.width,
+            end: 0)
         .animate(controller)
           ..addListener(() {
             setState(() {
@@ -70,6 +86,14 @@ class _WalletScreenState extends State<WalletScreen>
   Future<void> start() async {
     await Future.delayed(Duration(seconds: 1));
     controller.forward();
+  }
+
+  String getZeros(int num) {
+    String a = '';
+    for (int i = 0; i < num.toString().length; i++) {
+      a = a + '0';
+    }
+    return a;
   }
 
   @override
@@ -97,7 +121,7 @@ class _WalletScreenState extends State<WalletScreen>
                 height: size.height * 0.2,
               ),
               Container(
-                height: size.height * 0.1,
+                height: 80,
                 child: Center(
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -117,7 +141,10 @@ class _WalletScreenState extends State<WalletScreen>
                         offset: Offset(animationbw.value, animationbh.value),
                         //TODO: code for normal number animation
                         child: Text(
-                          "\$" + numberAnim.value.toStringAsFixed(2),
+                          "\$" +
+                              (numberAnim.value == 0
+                                  ? getZeros(num.toInt()) + '.00'
+                                  : numberAnim.value.toStringAsFixed(2)),
                           style: TextStyle(fontSize: 42, color: Colors.black),
 
                           //TODO: Code for number SLider
