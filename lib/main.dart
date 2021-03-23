@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:test_work/profile.dart';
 import 'package:test_work/wallet.dart';
 
 void main() {
@@ -52,7 +53,15 @@ class MyHomePage extends StatelessWidget {
                       );
                     },
                     child: Text("Wallet")),
-                OutlinedButton(onPressed: () {}, child: Text("Profile")),
+                OutlinedButton(onPressed: () {
+                  Navigator.of(context).push(
+                    MaterialPageRoute(
+                      builder: (context) => ProfileScreen(
+                        size: MediaQuery.of(context).size,
+                      ),
+                    ),
+                  );
+                }, child: Text("Profile")),
               ],
             ),
           ],
