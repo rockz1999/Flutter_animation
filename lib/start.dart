@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 
 class StartScreen extends StatefulWidget {
   @override
@@ -10,7 +11,9 @@ class _StartScreenState extends State<StartScreen>
   AnimationController controller;
   Animation<double> textAnim;
   Animation<double> textSlideAnim;
-
+  TextEditingController _titleController = TextEditingController.fromValue(
+      TextEditingValue(text: 'What\'s On Your Mind?'));
+  TextEditingController _decController = TextEditingController();
   final List<String> months = [
     'January',
     'February',
@@ -115,8 +118,8 @@ class _StartScreenState extends State<StartScreen>
     painter.textScaleFactor = 1.0;
     painter.layout();
     return painter.size.width > sWidth
-        ? Size(sWidth, painter.size.height * 2)
-        : painter.size;
+        ? Size(sWidth, painter.size.height * 2.5)
+        : Size(painter.size.width, painter.size.height * 0.25);
   }
 
   @override
@@ -124,8 +127,11 @@ class _StartScreenState extends State<StartScreen>
     final date = '${dateTme.day} ${months[dateTme.month - 1]}, ${dateTme.year}';
     final textSize = _getSizeOfText(MediaQuery.of(context).size.width);
     return Scaffold(
+      resizeToAvoidBottomInset: false,
+      primary: true,
       body: SafeArea(
         child: Container(
+          height: MediaQuery.of(context).size.height,
           decoration: BoxDecoration(
             gradient: LinearGradient(
                 colors: [Color(0xffC9D8CD), Color(0xffDDDDDD)],
@@ -134,6 +140,7 @@ class _StartScreenState extends State<StartScreen>
           ),
           padding: const EdgeInsets.all(20),
           child: Column(
+            mainAxisSize: MainAxisSize.max,
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -149,15 +156,15 @@ class _StartScreenState extends State<StartScreen>
                     ),
                   ),
                   Container(
-                    padding: const EdgeInsets.all(4),
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(4),
-                      color: color,
-                    ),
-                    child: Icon(
-                      Icons.wysiwyg_outlined,
-                      size: 20,
                       color: Colors.white,
+                    ),
+                    child:SvgPicture.asset(
+                      'assets/hamburger.svg',
+                      color: color,
+                      width: 25,
+                      height: 25,
                     ),
                   )
                 ],
@@ -186,7 +193,10 @@ class _StartScreenState extends State<StartScreen>
                           child: Column(
                             children: [
                               Container(
-                                height: textSize.height,
+                                height: textSize.width >
+                                        MediaQuery.of(context).size.width
+                                    ? textSize.height * 2
+                                    : textSize.height,
                                 child: Text(
                                   'What\'s On Your Mind?',
                                   style: TextStyle(
@@ -199,12 +209,25 @@ class _StartScreenState extends State<StartScreen>
                                         MediaQuery.of(context).size.width
                                     ? textSize.height * 2
                                     : textSize.height,
-                                child: Text(
-                                  'What\'s On Your Mind?',
-                                  style: TextStyle(
-                                    fontSize: 42,
+                                child: TextField(
+                                  maxLines: 3,
+                                  controller: _titleController,
+                                  style: TextStyle(fontSize: 42),
+                                  decoration: InputDecoration(
+                                    hintStyle: TextStyle(fontSize: 16),
+                                    hintText: 'Type Something here',
+                                    enabledBorder: InputBorder.none,
+                                    focusedBorder: InputBorder.none,
+                                    disabledBorder: InputBorder.none,
+                                    errorBorder: InputBorder.none,
                                   ),
                                 ),
+                                // Text(
+                                //   'What\'s On Your Mind?',
+                                //   style: TextStyle(
+                                //     fontSize: 42,
+                                //   ),
+                                // ),
                               ),
                               Container(
                                 height: textSize.width >
@@ -230,7 +253,9 @@ class _StartScreenState extends State<StartScreen>
                 height: 60,
               ),
               TextField(
+                maxLines: 6,
                 style: TextStyle(fontSize: 16),
+                controller: _decController,
                 decoration: InputDecoration(
                   hintStyle: TextStyle(fontSize: 16),
                   hintText: 'Type Something here',
@@ -246,10 +271,12 @@ class _StartScreenState extends State<StartScreen>
                 child: CircleAvatar(
                   backgroundColor: Colors.black54,
                   radius: 30,
-                  child: Icon(
-                    Icons.check,
-                    size: 40,
+                  child:SvgPicture.asset(
+                    'assets/check.svg',
                     color: color,
+                    width: 20,
+                    height: 20,
+                    fit: BoxFit.none,
                   ),
                 ),
               ),
