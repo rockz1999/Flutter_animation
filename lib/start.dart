@@ -292,14 +292,14 @@ class _StartScreenState extends State<StartScreen>
 }
 
 class CustomTextClipper extends CustomClipper<Rect> {
-  CustomTextClipper(this.TextSize);
+  CustomTextClipper(this.textSize);
 
-  final Size TextSize;
+  final Size textSize;
 
   @override
   Rect getClip(Size size) {
     return Rect.fromPoints(
-        Offset.zero, Offset(TextSize.width, TextSize.height));
+        Offset.zero, Offset(textSize.width, textSize.height));
   }
 
   @override

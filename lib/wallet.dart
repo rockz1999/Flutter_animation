@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class WalletScreen extends StatefulWidget {
-  Size size;
+  final Size size;
 
   WalletScreen({Key key, @required this.size}) : super(key: key);
 

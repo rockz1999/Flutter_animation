@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:test_work/chatScreen/ChatScreen.dart';
 import 'package:test_work/profile.dart';
 import 'package:test_work/start.dart';
 import 'package:test_work/wallet.dart';
@@ -72,6 +73,13 @@ class MyHomePage extends StatelessWidget {
                       );
                     },
                     child: Text("Start")),
+                OutlinedButton(
+                    onPressed: () {
+                      Navigator.of(context).push(
+                        MaterialPageRoute(builder: (context) => ChatScreenPage()),
+                      );
+                    },
+                    child: Text("Chat")),
               ],
             ),
           ],
