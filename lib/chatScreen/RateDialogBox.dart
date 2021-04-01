@@ -33,12 +33,14 @@ class _CustomRatingDialogBoxState extends State<CustomRatingDialogBox> {
           borderRadius: BorderRadius.circular(8),
           color: Colors.greenAccent[100],
         ),
-        height: 400,
+        height: 450,
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            Spacer(flex: 4,),
+            Spacer(
+              flex: 4,
+            ),
             Container(
               height: 200,
               child: Stack(
@@ -87,8 +89,9 @@ class _CustomRatingDialogBoxState extends State<CustomRatingDialogBox> {
                 ],
               ),
             ),
-            Spacer(flex: 2,),
-
+            Spacer(
+              flex: 2,
+            ),
             Container(
               child: Center(
                   child: Text(
@@ -102,8 +105,9 @@ class _CustomRatingDialogBoxState extends State<CustomRatingDialogBox> {
               )),
               width: size.width * 0.6,
             ),
-            Spacer(flex: 2,),
-
+            Spacer(
+              flex: 2,
+            ),
             Container(
               width: size.width * 0.6,
               child: FittedBox(
@@ -153,8 +157,34 @@ class _CustomRatingDialogBoxState extends State<CustomRatingDialogBox> {
                 ),
               ),
             ),
-            Spacer(flex: 6,),
-
+            if (rating == 0)
+              Spacer(
+                flex: 8,
+              ),
+            if (rating > 0) ...[
+              Spacer(
+                flex: 2,
+              ),
+              Divider(
+                thickness: 2,
+              ),
+              TextButton(
+                onPressed: () {
+                  Navigator.of(context).pop();
+                  if (widget.onpressed != null) widget.onpressed();
+                },
+                child: Text(
+                  'YES',
+                  style: TextStyle(
+                      color: Colors.green[900],
+                      fontSize: 18,
+                      fontWeight: FontWeight.bold),
+                ),
+              ),
+              SizedBox(
+                height: 10,
+              )
+            ],
           ],
         ),
       ),
